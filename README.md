@@ -18,8 +18,6 @@ This Telegram script allows you to semi-automatically farm TRX. It will automati
 
 ## Requirements
 
-* Telegram bot
-* Telegram script
 * TRX wallet
 
 ## Instructions
@@ -39,7 +37,7 @@ The Semi-Auto TRX Farmer script is licensed under the MIT License.
 
 ## Additional Information
 
-* The script is compatible with all major Telegram clients.
+* Donations TRX Adress : `TKXQkCszVCkRhfSbf8fhYFNwY16nMSy8qT`
 * The script is regularly updated to fix bugs and add new features.
 * The script is very lightweight and will not slow down your computer.
 
