@@ -10,6 +10,12 @@ IS_DEBUG = True
 # The current working directory
 PATH = os.path.dirname(os.path.realpath(__file__))
 
+DEFAULT_SECRETS = {
+    "cwallet_auth_token": "REPLACE_ME_WITH_AUTH_TOKEN_OF_CWALLET",
+    "ci_session_browser": "REPLACE_ME_WITH_CI_SESSION_OF_BROWSER",
+    "tron_wallet_private_key": "REPLACE_ME_WITH_PRIVATE_KEY_OF_TRON_WALLET"
+}
+
 
 def debug_print(*args):
     """
@@ -31,6 +37,7 @@ def debug_print(*args):
     now = time.strftime("%H:%M:%S")
     print(f"{now} [DEBUG] " + " ".join(args),
           file=open(f"{PATH}/logs/debug.log", "a", encoding='utf-8'))
+
 
 def check_and_create_path(path=None, file_name=None):
     """
@@ -69,7 +76,6 @@ def check_and_create_path(path=None, file_name=None):
         return False
 
 
-
 def load_json(file_path):
     """
     Function to load a json file. from a path.
@@ -83,12 +89,13 @@ def load_json(file_path):
     # file path ends with .json
     if not file_path.endswith(".json"):
         raise exception.NotJsonError(file_path)
-        
+
     else:
         try:
             return json.load(open(file_path, "r", encoding='utf-8'))
         except json.JSONDecodeError as _e:
             raise exception.NotJsonError(file_path) from _e
+
 
 def dump_json(file_path, json_object):
     """
@@ -105,15 +112,13 @@ def dump_json(file_path, json_object):
     # Check if the file exists
     if not os.path.exists(file_path):
         raise FileNotFoundError(file_path)
-        
+
     else:
         try:
-            json.dump(json_object, open(file_path, "w", encoding='utf-8'), indent=4, sort_keys=True)
+            json.dump(json_object, open(file_path, "w",
+                      encoding='utf-8'), indent=4, sort_keys=True)
         except json.JSONDecodeError as _e:
             raise exception.NotJsonError(file_path) from _e
-
-
-
 
 
 if __name__ == "__main__":
@@ -124,10 +129,6 @@ if __name__ == "__main__":
     if check_and_create_path(file_name="secrets/secrets.json"):
         # create the secrets.json file
         debug_print("Creating the `secrets.json` file")
-        secrets = load_json("secrets.json")
-        secrets = {
-            "cwallet_auth_token": "REPLACE_ME_WITH_AUTH_TOKEN_OF_CWALLET",
-            "ci_session_browser": "REPLACE_ME_WITH_CI_SESSION_OF_BROWSER",
-            "tron_wallet_private_key": "REPLACE_ME_WITH_PRIVATE_KEY_OF_TRON_WALLET"
-        }
+        secrets = load_json("secrets/secrets.json")
+        secrets = DEFAULT_SECRETS
         dump_json("secrets/secrets.json", secrets)
