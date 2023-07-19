@@ -1,3 +1,4 @@
+"""Initialize a WebClient object."""
 import os
 
 # install requirements for web_client

@@ -1,1 +1,9 @@
-Config.json
+# Ignores the secrets directory
+secrets/
+
+# Ignores the pycache directory
+__pycache__/
+
+# Ignores the logs directory
+logs/
+ ad
