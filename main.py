@@ -112,20 +112,22 @@ def dump_json(file_path, json_object):
         except json.JSONDecodeError as _e:
             raise exception.NotJsonError(file_path) from _e
 
-# Create the `secrets` directory if it doesn't exist
-if check_and_create_path(file_name="secrets/secrets.json"):
-    # create the secrets.json file
-    debug_print("Creating the `secrets.json` file")
-    secrets = load_json("secrets.json")
-    secrets = {
-        "cwallet_auth_token": "REPLACE_ME_WITH_AUTH_TOKEN_OF_CWALLET",
-        "ci_session_browser": "REPLACE_ME_WITH_CI_SESSION_OF_BROWSER",
-        "tron_wallet_private_key": "REPLACE_ME_WITH_PRIVATE_KEY_OF_TRON_WALLET"
-    }
-    dump_json("secrets/secrets.json", secrets)
+
 
 
 
 if __name__ == "__main__":
     # Start the program
     debug_print("Starting the program")
+
+    # Create the `secrets` directory if it doesn't exist
+    if check_and_create_path(file_name="secrets/secrets.json"):
+        # create the secrets.json file
+        debug_print("Creating the `secrets.json` file")
+        secrets = load_json("secrets.json")
+        secrets = {
+            "cwallet_auth_token": "REPLACE_ME_WITH_AUTH_TOKEN_OF_CWALLET",
+            "ci_session_browser": "REPLACE_ME_WITH_CI_SESSION_OF_BROWSER",
+            "tron_wallet_private_key": "REPLACE_ME_WITH_PRIVATE_KEY_OF_TRON_WALLET"
+        }
+        dump_json("secrets/secrets.json", secrets)
