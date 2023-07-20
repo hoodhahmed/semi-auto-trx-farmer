@@ -3,6 +3,7 @@ import re
 import json
 import requests
 
+
 class WebClient:
 
     def __init__(self, url: str, ci_session: str = None, debug: bool = False):
@@ -38,7 +39,7 @@ class WebClient:
             'sec-fetch-site': 'same-origin',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
             'x-requested-with': 'XMLHttpRequest',
-            }
+        }
 
     def _login(self, address: str, password: str = None, referal_id: str = ""):
         """
@@ -58,7 +59,29 @@ class WebClient:
         }
 
         response = requests.post(f'{self.url}/ajax_auth',
-                                 cookies=self.cookies, headers=self.headers, data=data,timeout=10)
+                                 cookies=self.cookies, headers=self.headers, data=data, timeout=10)
 
         return response
-    
+
+    def logout(self):
+        """
+        Clear the cookies of website and logout
+        """
+
+        # Need to impliment debugiing
+        #debug_print("Logging out...")
+
+        try:
+            # Resets the remember token
+            self.remember_token = None
+            # clear the `remember_code` from cookies
+            self.cookies.pop("remember_code")
+
+            # Need to impliment debugiing
+            #debug_print("Logged out successfully")
+
+        except:
+            # Do nothing
+            # Need to impliment debugiing
+            #debug_print("Error while logging out")
+            pass
